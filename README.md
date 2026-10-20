@@ -1,5 +1,7 @@
 # Deploy and Host SillyTavern with Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/sillytavern-119-ai-chat-and-character-ui?referralCode=20H68q)
+
 Run SillyTavern, the open-source chat interface for power users of large language models, on Railway with a login from the first minute. Bring any model provider or your own endpoint, keep characters, lorebooks, chats and extensions on a persistent volume, and reach it from any browser.
 
 ## About Hosting SillyTavern
