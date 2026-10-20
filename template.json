@@ -1,0 +1,80 @@
+{
+  "name": "SillyTavern 1.19 AI Chat and Character UI",
+  "description": "Power-user chat UI for any LLM: characters, lorebooks, extensions, login.",
+  "category": "AI/ML",
+  "tags": [
+    "sillytavern",
+    "llm",
+    "ai-chat",
+    "roleplay",
+    "character-cards",
+    "lorebook",
+    "openai-compatible",
+    "self-hosted"
+  ],
+  "image": "https://cdn.jsdelivr.net/gh/SillyTavern/SillyTavern@1.19.0/public/img/logo.png",
+  "upstream": {
+    "repo": "SillyTavern/SillyTavern",
+    "version": "1.19.0",
+    "commit": "7e8663cd9c184a550b37238218bdd32c6efc68e9",
+    "released": "2026-09-14",
+    "image": "ghcr.io/sillytavern/sillytavern:1.19.0@sha256:eef27ff0c7961f1a2f488400f581f48ff38f8b910c5d3b8d389138d71791bb14",
+    "license": "AGPL-3.0",
+    "checked": "2026-10-20"
+  },
+  "services": {
+    "SillyTavern": {
+      "icon": "https://cdn.jsdelivr.net/gh/SillyTavern/SillyTavern@1.19.0/public/img/logo.png",
+      "source": {
+        "repo": "baranberkay96/sillytavern-railway",
+        "rootDirectory": "/services/sillytavern"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": "/login",
+      "healthcheckTimeout": 600,
+      "restartPolicyType": "ALWAYS",
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": true,
+      "targetPort": 8000,
+      "tcpProxy": null,
+      "volume": {
+        "mountPath": "/data"
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "8000",
+          "description": "Port SillyTavern listens on (0.0.0.0). Railway's healthcheck and the public domain use it; keep 8000 unless you also change the domain's target port.",
+          "required": false
+        },
+        "ST_ADMIN_HANDLE": {
+          "defaultValue": "admin-${{secret(10, \"abcdefghijkmnpqrstuvwxyz23456789\")}}",
+          "description": "Login handle of the admin account, generated at deploy (random so it cannot be guessed; the login page does not list accounts). a-z, 0-9 and dashes.",
+          "required": false
+        },
+        "ST_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Admin password (min. 12 characters), set on the first boot. Change it here and redeploy to reset it; a password changed in SillyTavern is kept until then.",
+          "required": false
+        },
+        "SILLYTAVERN_ENABLEDISCREETLOGIN": {
+          "defaultValue": "true",
+          "description": "true hides the account list on the login page, so handles must be typed. Keep it on unless every handle is hard to guess.",
+          "required": false
+        },
+        "SILLYTAVERN_ENABLESERVERPLUGINS": {
+          "defaultValue": "false",
+          "description": "Server plugins run as Node code inside SillyTavern with access to all users' data and API keys. Set true only for plugins you have reviewed.",
+          "required": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "10",
+          "description": "Seconds SillyTavern gets after SIGTERM to save usage stats and exit cleanly before a redeploy stops it.",
+          "required": false
+        }
+      }
+    }
+  },
+  "buckets": []
+}
